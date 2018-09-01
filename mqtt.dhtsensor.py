@@ -54,6 +54,9 @@ if (len(sys.argv) < 2):
 
 MOSQUITTO_HOST = 'servername'
 MOSQUITTO_PORT = 1883
+MOSQUITTO_USER = 'USERNAME' #change to your credentials if needed
+MOSQUITTO_PWD  = 'PASSWORD' 
+
 MOSQUITTO_TEMP_MSG = str(sys.argv[1]) # Old channel name in here
 MOSQUITTO_HUMI_MSG = str(sys.argv[2]) # Old channel name now passed by argument
 print('Mosquitto Temp MSG {0}'.format(MOSQUITTO_TEMP_MSG))
@@ -90,6 +93,7 @@ try:
         print('Humidity:    {0:0.2f} %'.format(humidity))
 
         # Publish to the MQTT channel
+	mqttc.username_pw_set(MOSQUITTO_USER,MOSQUITTO_PWD) # deactivate if not needed
         try:
      	    mqttc.connect(MOSQUITTO_HOST,MOSQUITTO_PORT);
             print 'Updating {0}'.format(MOSQUITTO_TEMP_MSG)
